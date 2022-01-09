@@ -3,6 +3,6 @@ WORKDIR /app
 COPY . .
 RUN mvn clean package
 
-FROM urssharath/myrepo:ver1.0
+FROM mallikarjun10/myrepo:ver1.0
 COPY --from=maven_build /app/target/* /usr/local/tomcat/webapps/
 

@@ -6,7 +6,7 @@ pipeline {
 	       agent { label 'jenki' }
             steps {
                 sh 'sudo rm -rf hello-world-war'
-	sh 'git clone https://github.com/Urssharath/hello-world-war.git'	
+	sh 'git clone https://github.com/mallikarjunlb/hello-world-war.git'	
               }
         }
 	 stage('build') {
@@ -17,7 +17,7 @@ pipeline {
                   sh 'pwd'
                 sh 'ls'
             
-                sh 'docker build -t tomcat:${BUILD_NUMBER} .'  
+                sh 'docker build -t tomcat:ver1.1 .'  
 			
                 }
 	    }
@@ -27,16 +27,16 @@ pipeline {
 	
             steps {
 		    sh 'ls'
-            sh 'docker tag tomcat:${BUILD_NUMBER} urssharath/myrepo:${BUILD_NUMBER}'
+            sh 'docker tag tomcat:ver1.1 mallikarjun10/myrepo:ver1.0'
 		    sh 'docker images'
-                sh 'docker push urssharath/myrepo:${BUILD_NUMBER}'
+                sh 'docker push mallikarjun10/myrepo:ver1.0'
          }
 	 }
 		 stage('deploy'){
 		 agent { label 'test' }
 	     steps{
 	        sh 'docker rm -f mytomcat'
-	         sh 'docker run -d --name mytomcat -p 7777:8080 urssharath/myrepo:${BUILD_NUMBER}'
+	         sh 'docker run -d --name mytomcat -p 7777:8080 mallikarjun10/myrepo:ver1.0'
 	     }
 	 }
 	
